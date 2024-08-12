@@ -14,10 +14,11 @@
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
     </script>
 
-
     <nav class="navbar navbar-expand-lg bg-dark shadow-lg" data-bs-theme="dark">
         <div class="container">
-            <a class="navbar-brand" href="/">Tech Jobs</a>
+            <a class="navbar-brand" href="/">Tech Jobzzsss</a>
+
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
