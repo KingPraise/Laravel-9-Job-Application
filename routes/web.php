@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\ApplicantController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PostJobController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SubcriptionController;
-use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckAuth;
 use App\Http\Middleware\isEmployer;
+use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\isPremiumUser;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PostJobController;
+use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\JoblistingController;
+use App\Http\Controllers\SubcriptionController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
@@ -23,19 +24,8 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
-
-// Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-//     $request->fulfill();
-//     return redirect('/home');
-// })->middleware(['auth', 'signed'])->name('verification.verify');
-
-
-
-// Route::get('/users', [TestController::class, 'index']);
-
+Route::get('/', [JoblistingController::class, 'index']);
+Route::get('/jobs/{listing:slug}', [JoblistingController::class, 'show'])->name('job.show');
 
 Route::get('/contact', [ContactController::class, 'index']);
 Route::get('/contact/store', [ContactController::class, 'store']);

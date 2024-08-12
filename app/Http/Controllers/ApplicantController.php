@@ -17,6 +17,10 @@ class ApplicantController extends Controller
 
     public function show($slug)
     {
+        $this->authorize('view', $slug);
+        if ($slug->user_id != auth()->id()) {
+            abort(403);
+        }
         $listing =  Listing::with('users')->where('slug', $slug)->first();
         return view('applicants.show', compact('listing'));
     }
