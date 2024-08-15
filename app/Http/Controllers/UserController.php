@@ -85,7 +85,11 @@ class UserController extends Controller
         return redirect()->route('login');
     }
 
-
+    public function jobApplied()
+    {
+        $users = User::with('listings')->where('id', auth()->user()->id)->get();
+        return view('seeker.job-applied', compact('users'));
+    }
 
 
 
@@ -147,8 +151,13 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
+
+        // dd($request->all());
+
+
         if ($request->hasFile('profile_pic')) {
-            $imagepath = $request->file('profile_pic')->store('profile', 'public');
+            // dd($request->hasFile('profile_pic'));
+            $imagepath = $request->file('profile_pic')->store('profile', "public");
 
             User::find(auth()->user()->id)->update(['profile_pic' => $imagepath]);
         }

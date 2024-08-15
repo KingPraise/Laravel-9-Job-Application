@@ -8,7 +8,18 @@
                     <img src="{{ Storage::url($listing->feature_image) }}" class="card-img-top" alt="Cover Image"
                         style="height: 150px; object-fit: cover;">
                     <div class="card-body">
+
+                        <a href="{{ route('company', [$listing->profile->id]) }}">
+                            <img src="{{ Storage::url($listing->profile->profile_pic) }}" alt="" width="60"
+                                class="rounded-circle">
+                        </a>
+                        <b>{{ $listing->profile->name }}</b>
                         <h2 class="card-title">{{ $listing->title }}</h2>
+                        @if (Session::has('success'))
+                            <div class="alert alert-success">
+                                {{ Session::get('success') }}
+                            </div>
+                        @endif
                         <span class="badge bg-primary">{{ $listing->job_type }}</span>
                         <p>Salary: ${{ number_format((float) $listing->salary, 2) }} </p>
                         <p>Address: {{ $listing->address }}</p>
@@ -20,13 +31,19 @@
                         {!! $listing->roles !!}
 
                         <p class="card-text mt-4">Application closing date: {{ $listing->application_close_date }}</p>
-                        @if ($listing->profile->resume)
-                            <a href="#" class="btn btn-primary mt-3">Apply Now</a>
+                        @if (Auth::check())
+                            @if (auth()->user()->resume)
+                                <form action="{{ route('application.submit', [$listing->id]) }}" method="post">@csrf
+                                    <button href="#" class="btn btn-primary mt-3">Apply Now</button>
+                                </form>
+                            @else
+                                <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop">
+                                    Apply
+                                </button>
+                            @endif
                         @else
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#staticBackdrop">
-                                Apply
-                            </button>
+                            <p>Please Login to Apply </p>
                         @endif
                         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
                             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

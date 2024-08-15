@@ -25,7 +25,9 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 |
 */
 
-Route::get('/', [JoblistingController::class, 'index']);
+Route::get('/', [JoblistingController::class, 'index'])->name('listing.index');
+Route::get('/company.{id}', [JoblistingController::class, 'company'])->name('company');
+
 Route::get('/jobs/{listing:slug}', [JoblistingController::class, 'show'])->name('job.show');
 
 Route::post('/resume/upload', [FileUploadController::class, 'store'])->middleware('auth');
@@ -38,14 +40,17 @@ Route::post('/register/employer', [UserController::class, 'storeEmployer'])->nam
 
 
 
-Route::get('/login', [UserController::class, 'login'])->name('login')->middleware(CheckAuth::class);
+Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::post('/login', [UserController::class, 'postLogin'])->name('login.post');
 
-Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::get('user/profile', [UserController::class, 'profile'])->name('user.profile')->middleware('auth');
 Route::post('user/profile', [UserController::class, 'update'])->name('user.update.profile')->middleware('auth');
 Route::get('user/profile/seeker', [UserController::class, 'seekerProfile'])->name('seeker.profile')->middleware('auth');
+
+Route::get('user/job/applied', [UserController::class, 'jobApplied'])->name("job.applied");
+
 Route::post('user/password', [UserController::class, 'changePassword'])->name('user.password')->middleware('auth');
 Route::post('upload/resume', [UserController::class, 'uploadResume'])->name('upload.resume')->middleware('auth');
 

@@ -18,7 +18,7 @@
 
     <nav class="navbar navbar-expand-lg bg-dark shadow-lg" data-bs-theme="dark">
         <div class="container">
-            <a class="navbar-brand" href="/">Tech Jobzzsss</a>
+            <a class="navbar-brand" href="/">Tech Jobs</a>
 
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -30,6 +30,36 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
+
+                    @if (Auth::check())
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                @if (auth()->user()->profile_pic)
+                                    <img src="{{ Storage::url(auth()->user()->profile_pic ?? '') }}" width="40"
+                                        class="rounded-circle">
+                                @else
+                                    <img src="https://placehold.co/400" class="rounded-circle" width="40">
+                                @endif
+                            </a>
+                            <ul class="dropdown-menu">
+
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page"
+                                        href="{{ route('seeker.profile') }}">Profile</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="{{ route('job.applied') }}">Job
+                                        Applied</a>
+                                </li>
+                                <li class="nav-item">
+                                    <form id="form-logout" action="{{ route('logout') }}" method="get"> @csrf
+
+                                        <a class="nav-link" id="form-logout" href="{{ route('logout') }}">Logout</a>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
 
 
                     @if (!Auth::check())
@@ -43,18 +73,7 @@
                             <a class="nav-link " href="{{ route('create.employer') }}">Employer</a>
                         </li>
                     @endif
-                    @if (Auth::check())
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="{{ route('seeker.profile') }}">Profile</a>
-                        </li>
-                        <li class="nav-item">
-                            <form method="post" id="form-logout" action="{{ route('logout') }}"> @csrf
-                                <button type="submit" class="dropdown-item" id="logout"
-                                    style="color: white">Logout</button>
-                            </form>
-                        </li>
-                    @endif
-                    <form id="form-logout" action="{{ route('logout') }}" method="post"> @csrf</form>
+
                 </ul>
             </div>
         </div>
