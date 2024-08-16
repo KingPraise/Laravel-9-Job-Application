@@ -49,7 +49,9 @@
                     <div class="card p-2 {{ $job->job_type }}">
                         <div class="text-right"> <small class="badge text-bg-info">{{ $job->job_type }}</small> </div>
                         <div class="text-center mt-2 p-3"> <img class="rounded-circle"
-                                src="{{ Storage::url($job->profile->profile_pic) }}" width="100" /> <br>
+                                src="{{ asset('storage/profile/' . basename($job->profile->profile_pic)) }}"
+                                width="100" /> <br>
+                            <p>{{ asset('storage/profile/' . basename($job->profile->profile_pic)) }}</p>
                             <span class="d-bl>ock font-weight-bold">{{ $job->title }}</span>
                             <hr> <span>{{ $job->profile->name }}</span>
                             <div class="d-flex flex-row align-items-center justify-content-center">
